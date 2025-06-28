@@ -29,7 +29,7 @@
       margin-top: 20px;
       cursor: pointer;
     }
-    #timer {
+    #timer, #referralStatus {
       margin-top: 20px;
       font-size: 18px;
       color: #aaa;
@@ -41,8 +41,12 @@
   <div id="output"></div>
   <button id="openBtn">Open Pack</button>
   <div id="timer"></div>
+  <div id="referralStatus"></div>
 
   <script>
+    const tg = window.Telegram.WebApp;
+    tg.expand();
+
     const nftPool = [
       { rarity: "Common", image: "https://via.placeholder.com/300x300?text=Common", chance: 54.5 },
       { rarity: "Rare", image: "https://via.placeholder.com/300x300?text=Rare", chance: 23 },
@@ -55,13 +59,23 @@
     const openBtn = document.getElementById("openBtn");
     const output = document.getElementById("output");
     const timer = document.getElementById("timer");
+    const referralStatus = document.getElementById("referralStatus");
 
     const ONE_DAY = 24 * 60 * 60 * 1000;
+    const REFERRALS_NEEDED = 3;
+
+    let referrals = parseInt(localStorage.getItem("referrals") || "0");
+    let bonusPacks = parseInt(localStorage.getItem("bonusPacks") || "0");
+
+    function updateReferralUI() {
+      const needed = REFERRALS_NEEDED - (referrals % REFERRALS_NEEDED);
+      referralStatus.textContent = `You have ${referrals} referrals. Invite ${needed} more to earn a bonus pack! Bonus packs: ${bonusPacks}`;
+    }
 
     function canOpenPack() {
       const lastOpen = localStorage.getItem("lastOpenTime");
       if (!lastOpen) return true;
-      return Date.now() - parseInt(lastOpen) >= ONE_DAY;
+      return Date.now() - parseInt(lastOpen) >= ONE_DAY || bonusPacks > 0;
     }
 
     function timeLeft() {
@@ -89,6 +103,7 @@
     }
 
     function updateUI() {
+      updateReferralUI();
       if (canOpenPack()) {
         openBtn.disabled = false;
         timer.textContent = "";
@@ -101,14 +116,44 @@
     openBtn.addEventListener("click", () => {
       const nft = getRandomNFT();
       output.innerHTML = `<h3>You got a ${nft.rarity} NFT!</h3><img src="${nft.image}" alt="${nft.rarity}" />`;
-      localStorage.setItem("lastOpenTime", Date.now());
+      if (bonusPacks > 0 && Date.now() - parseInt(localStorage.getItem("lastOpenTime")) < ONE_DAY) {
+        bonusPacks--;
+        localStorage.setItem("bonusPacks", bonusPacks);
+      } else {
+        localStorage.setItem("lastOpenTime", Date.now());
+      }
       updateUI();
     });
 
+    // Handle referral parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const ref = urlParams.get("ref");
+    const currentUserId = tg.initDataUnsafe?.user?.id?.toString();
+    const alreadyReferred = localStorage.getItem("alreadyReferred") === "true";
+
+    if (ref && ref !== currentUserId && !alreadyReferred) {
+      localStorage.setItem("alreadyReferred", "true");
+      let count = parseInt(localStorage.getItem("referralCountFor_" + ref) || "0");
+      count++;
+      localStorage.setItem("referralCountFor_" + ref, count);
+      if (count % REFERRALS_NEEDED === 0) {
+        let currentBonus = parseInt(localStorage.getItem("bonusPacksFor_" + ref) || "0");
+        currentBonus++;
+        localStorage.setItem("bonusPacksFor_" + ref, currentBonus);
+      }
+    }
+
+    // Load referrals from localStorage
+    for (let key in localStorage) {
+      if (key.startsWith("referralCountFor_") && key.endsWith(currentUserId)) {
+        referrals = parseInt(localStorage.getItem(key));
+        break;
+      }
+    }
+    bonusPacks = parseInt(localStorage.getItem("bonusPacks") || "0");
+
     setInterval(updateUI, 1000);
     updateUI();
-
-    Telegram.WebApp.expand();
   </script>
 </body>
 </html>
