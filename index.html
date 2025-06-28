@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NFT Pack Opener</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    body {
+      background: #121212;
+      color: #fff;
+      text-align: center;
+      font-family: sans-serif;
+      padding: 20px;
+    }
+    img {
+      max-width: 90%;
+      border-radius: 12px;
+      margin-top: 20px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    }
+    button {
+      background: #2a9d8f;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+    #timer {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+  <h2>Open Your Daily NFT Pack</h2>
+  <div id="output"></div>
+  <button id="openBtn">Open Pack</button>
+  <div id="timer"></div>
+
+  <script>
+    const nftPool = [
+      { rarity: "Common", image: "https://via.placeholder.com/300x300?text=Common", chance: 54.5 },
+      { rarity: "Rare", image: "https://via.placeholder.com/300x300?text=Rare", chance: 23 },
+      { rarity: "Epic", image: "https://via.placeholder.com/300x300?text=Epic", chance: 15 },
+      { rarity: "Unusual", image: "https://via.placeholder.com/300x300?text=Unusual", chance: 5.79 },
+      { rarity: "Legendary", image: "https://via.placeholder.com/300x300?text=Legendary", chance: 1.2 },
+      { rarity: "???", image: "https://via.placeholder.com/300x300?text=%3F%3F%3F", chance: 0.51 }
+    ];
+
+    const openBtn = document.getElementById("openBtn");
+    const output = document.getElementById("output");
+    const timer = document.getElementById("timer");
+
+    const ONE_DAY = 24 * 60 * 60 * 1000;
+
+    function canOpenPack() {
+      const lastOpen = localStorage.getItem("lastOpenTime");
+      if (!lastOpen) return true;
+      return Date.now() - parseInt(lastOpen) >= ONE_DAY;
+    }
+
+    function timeLeft() {
+      const lastOpen = localStorage.getItem("lastOpenTime");
+      if (!lastOpen) return 0;
+      const elapsed = Date.now() - parseInt(lastOpen);
+      return ONE_DAY - elapsed;
+    }
+
+    function formatTime(ms) {
+      const totalSeconds = Math.floor(ms / 1000);
+      const h = Math.floor(totalSeconds / 3600);
+      const m = Math.floor((totalSeconds % 3600) / 60);
+      const s = totalSeconds % 60;
+      return `${h}h ${m}m ${s}s`;
+    }
+
+    function getRandomNFT() {
+      let r = Math.random() * 100;
+      for (let nft of nftPool) {
+        if (r < nft.chance) return nft;
+        r -= nft.chance;
+      }
+      return nftPool[0];
+    }
+
+    function updateUI() {
+      if (canOpenPack()) {
+        openBtn.disabled = false;
+        timer.textContent = "";
+      } else {
+        openBtn.disabled = true;
+        timer.textContent = `Next pack available in: ${formatTime(timeLeft())}`;
+      }
+    }
+
+    openBtn.addEventListener("click", () => {
+      const nft = getRandomNFT();
+      output.innerHTML = `<h3>You got a ${nft.rarity} NFT!</h3><img src="${nft.image}" alt="${nft.rarity}" />`;
+      localStorage.setItem("lastOpenTime", Date.now());
+      updateUI();
+    });
+
+    setInterval(updateUI, 1000);
+    updateUI();
+
+    Telegram.WebApp.expand();
+  </script>
+</body>
+</html>
