@@ -60,6 +60,10 @@
     const functions = getFunctions(app);
 
     const tg = window.Telegram?.WebApp;
+    console.log("initDataUnsafe:", window.Telegram?.WebApp?.initDataUnsafe);
+    console.log("initData:", window.Telegram?.WebApp?.initData);
+    console.log("user:", window.Telegram?.WebApp?.initDataUnsafe?.user);
+
     tg?.expand();
 
     const logEl = document.getElementById("log");
