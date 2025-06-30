@@ -120,6 +120,20 @@
         openBtn.disabled = false;
       }
     };
+
+  async function testCanOpenPack() {
+  try {
+    const canOpenPack = httpsCallable(functions, "canOpenPack");
+    const result = await canOpenPack({
+      telegram_id: user.id.toString(),
+      init_data: tg.initData
+    });
+    console.log("Ответ от canOpenPack:", result.data);
+  } catch (error) {
+    console.error("Ошибка вызова canOpenPack:", error);
+  }
+}
+
   </script>
 </body>
 </html>
