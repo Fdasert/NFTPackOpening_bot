@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NFTPackOpening</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #111;
+      color: #fff;
+      text-align: center;
+      padding: 2rem;
+    }
+    #nft-result {
+      margin-top: 1rem;
+      font-size: 1.2rem;
+    }
+    button {
+      padding: 1rem 2rem;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 8px;
+      background-color: #0088cc;
+      color: #fff;
+      cursor: pointer;
+    }
+    button:disabled {
+      background-color: #444;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+  <h1>NFT Pack Opening</h1>
+  <button id="openBtn">Открыть пак</button>
+  <div id="nft-result"></div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
+    import { getFunctions, httpsCallable } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-functions.js";
+
+    // === 1. Firebase config ===
+    const firebaseConfig = {
+      apiKey: "AIzaSyAT2MOcam27vJzUWnAsNmBq_XEtrnjhquw",
+      authDomain: "nftpackopeningbot.firebaseapp.com",
+      projectId: "nftpackopeningbot",
+      storageBucket: "nftpackopeningbot.appspot.com",
+      messagingSenderId: "708537325891",
+      appId: "1:708537325891:web:292b2ebd39d37cf8d137f6",
+      measurementId: "G-H3DB9F9VRV"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const functions = getFunctions(app);
+
+    // === 2. Telegram WebApp init ===
+    const tg = window.Telegram?.WebApp;
+    tg?.expand();
+    const user = tg?.initDataUnsafe?.user;
+    const initData = tg?.initData;
+
+    const openBtn = document.getElementById("openBtn");
+    const nftResult = document.getElementById("nft-result");
+
+    if (!user) {
+      nftResult.textContent = "Ошибка: пользователь Telegram не обнаружен.";
+      openBtn.disabled = true;
+    } else {
+      checkCanOpenPack();
+    }
+
+    // === 3. Проверка доступности пака ===
+    async function checkCanOpenPack() {
+      const canOpenPack = httpsCallable(functions, "canOpenPack");
+      try {
+        const result = await canOpenPack({
+          telegram_id: user.id.toString(),
+          init_data: initData
+        });
+
+        if (!result.data.canOpen) {
+          const waitMin = Math.ceil(result.data.waitMs / 60000);
+          nftResult.textContent = `Пак уже открыт. Ждите ${waitMin} мин.`;
+          openBtn.disabled = true;
+        } else {
+          openBtn.disabled = false;
+        }
+      } catch (err) {
+        nftResult.textContent = "Ошибка запроса: " + err.message;
+        openBtn.disabled = true;
+      }
+    }
+
+    // === 4. Открытие пака ===
+    openBtn.onclick = async () => {
+      const openPack = httpsCallable(functions, "openPack");
+      try {
+        openBtn.disabled = true;
+        nftResult.textContent = "Открываем пак...";
+
+        const result = await openPack({
+          telegram_id: user.id.toString(),
+          init_data: initData
+        });
+
+        const nft = result.data.nft;
+        nftResult.textContent = `🎉 Выпал NFT: ${nft.name} (редкость: ${nft.rarity})`;
+      } catch (err) {
+        nftResult.textContent = "Ошибка при открытии: " + err.message;
+        openBtn.disabled = false;
+      }
+    };
+  </script>
+</body>
+</html>
