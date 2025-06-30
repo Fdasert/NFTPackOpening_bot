@@ -43,7 +43,6 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
     import { getFunctions, httpsCallable } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-functions.js";
 
-    // Firebase config
     const firebaseConfig = {
       apiKey: "AIzaSyAT2MOcam27vJzUWnAsNmBq_XEtrnjhquw",
       authDomain: "nftpackopeningbot.firebaseapp.com",
@@ -57,83 +56,33 @@
     const app = initializeApp(firebaseConfig);
     const functions = getFunctions(app);
 
-    // Инициализация Telegram Web App API
     const tg = window.Telegram?.WebApp;
-
-    // Расширяем WebApp под весь экран
     tg?.expand();
 
-    console.log("Telegram WebApp:", tg);
-    console.log("initData:", tg?.initData);
-    console.log("initDataUnsafe:", tg?.initDataUnsafe);
+    const logEl = document.getElementById("log");
 
-    const user = tg?.initDataUnsafe?.user;
-    const initData = tg?.initData;
-
-    const openBtn = document.getElementById("openBtn");
-    const nftResult = document.getElementById("nft-result");
-
-    if (!user) {
-      nftResult.textContent = "Ошибка: пользователь Telegram не обнаружен. Откройте этот Web App через Telegram.";
-      openBtn.disabled = true;
-    } else {
-      checkCanOpenPack();
-    }
-
-    async function checkCanOpenPack() {
-      const canOpenPack = httpsCallable(functions, "canOpenPack");
+    async function testCanOpenPack() {
+      logEl.textContent = "Вызов функции canOpenPack...";
       try {
-        const result = await canOpenPack({
-          telegram_id: user.id.toString(),
-          init_data: initData
-        });
-
-        if (!result.data.canOpen) {
-          const waitMin = Math.ceil(result.data.waitMs / 60000);
-          nftResult.textContent = `Пак уже открыт. Ждите ${waitMin} мин.`;
-          openBtn.disabled = true;
-        } else {
-          openBtn.disabled = false;
-          nftResult.textContent = "";
+        if (!tg?.initDataUnsafe?.user) {
+          logEl.textContent = "Ошибка: пользователь Telegram не обнаружен. Откройте через Telegram.";
+          return;
         }
-      } catch (err) {
-        nftResult.textContent = "Ошибка запроса: " + err.message;
-        openBtn.disabled = true;
+        const canOpenPack = httpsCallable(functions, "canOpenPack");
+        const result = await canOpenPack({
+          telegram_id: tg.initDataUnsafe.user.id.toString(),
+          init_data: tg.initData
+        });
+        logEl.textContent = "Ответ от canOpenPack:\n" + JSON.stringify(result.data, null, 2);
+      } catch (error) {
+        logEl.textContent = "Ошибка вызова canOpenPack:\n" + error.message;
       }
     }
 
-    openBtn.onclick = async () => {
-      const openPack = httpsCallable(functions, "openPack");
-      try {
-        openBtn.disabled = true;
-        nftResult.textContent = "Открываем пак...";
+    document.getElementById("testBtn").onclick = testCanOpenPack;
 
-        const result = await openPack({
-          telegram_id: user.id.toString(),
-          init_data: initData
-        });
-
-        const nft = result.data.nft;
-        nftResult.textContent = `🎉 Выпал NFT: ${nft.name} (редкость: ${nft.rarity})`;
-      } catch (err) {
-        nftResult.textContent = "Ошибка при открытии: " + err.message;
-        openBtn.disabled = false;
-      }
-    };
-
-  async function testCanOpenPack() {
-  try {
-    const canOpenPack = httpsCallable(functions, "canOpenPack");
-    const result = await canOpenPack({
-      telegram_id: user.id.toString(),
-      init_data: tg.initData
-    });
-    console.log("Ответ от canOpenPack:", result.data);
-  } catch (error) {
-    console.error("Ошибка вызова canOpenPack:", error);
-  }
-}
-
+    // Чтобы вызвать из консоли браузера
+    window.testCanOpenPack = testCanOpenPack;
   </script>
 </body>
 </html>
