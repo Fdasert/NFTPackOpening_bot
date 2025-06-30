@@ -19,3 +19,4 @@ if __name__ == '__main__':
     app.add_handler(CommandHandler("start", start))
     print("Бот запущен...")
     app.run_polling()
+
