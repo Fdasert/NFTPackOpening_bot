@@ -32,7 +32,7 @@ const crypto = require("crypto");
 admin.initializeApp();
 const db = admin.firestore();
 
-const BOT_TOKEN = "твой_бот_токен"; // ОБЯЗАТЕЛЬНО ТОЧНО ТОТ, ЧТО У БОТА
+const BOT_TOKEN = "7942953226:AAHri1jAKi_orylmcE3dGAJ3WwV3C_8NXt4";
 
 function verifyInitData(initData, botToken) {
   const secret = crypto.createHash("sha256").update(botToken).digest();
