@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>NFTPackOpening</title>
   <style>
     body {
@@ -36,11 +36,14 @@
   <button id="openBtn">Открыть пак</button>
   <div id="nft-result"></div>
 
+  <!-- Подключаем Telegram Web App JS -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
     import { getFunctions, httpsCallable } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-functions.js";
 
-    // === 1. Firebase config ===
+    // Firebase config
     const firebaseConfig = {
       apiKey: "AIzaSyAT2MOcam27vJzUWnAsNmBq_XEtrnjhquw",
       authDomain: "nftpackopeningbot.firebaseapp.com",
@@ -54,9 +57,16 @@
     const app = initializeApp(firebaseConfig);
     const functions = getFunctions(app);
 
-    // === 2. Telegram WebApp init ===
+    // Инициализация Telegram Web App API
     const tg = window.Telegram?.WebApp;
+
+    // Расширяем WebApp под весь экран
     tg?.expand();
+
+    console.log("Telegram WebApp:", tg);
+    console.log("initData:", tg?.initData);
+    console.log("initDataUnsafe:", tg?.initDataUnsafe);
+
     const user = tg?.initDataUnsafe?.user;
     const initData = tg?.initData;
 
@@ -64,13 +74,12 @@
     const nftResult = document.getElementById("nft-result");
 
     if (!user) {
-      nftResult.textContent = "Ошибка: пользователь Telegram не обнаружен.";
+      nftResult.textContent = "Ошибка: пользователь Telegram не обнаружен. Откройте этот Web App через Telegram.";
       openBtn.disabled = true;
     } else {
       checkCanOpenPack();
     }
 
-    // === 3. Проверка доступности пака ===
     async function checkCanOpenPack() {
       const canOpenPack = httpsCallable(functions, "canOpenPack");
       try {
@@ -85,6 +94,7 @@
           openBtn.disabled = true;
         } else {
           openBtn.disabled = false;
+          nftResult.textContent = "";
         }
       } catch (err) {
         nftResult.textContent = "Ошибка запроса: " + err.message;
@@ -92,7 +102,6 @@
       }
     }
 
-    // === 4. Открытие пака ===
     openBtn.onclick = async () => {
       const openPack = httpsCallable(functions, "openPack");
       try {
