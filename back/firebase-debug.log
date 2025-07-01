@@ -1,0 +1,104 @@
+[debug] [2025-06-30T14:26:37.363Z] ----------------------------------------------------------------------
+[debug] [2025-06-30T14:26:37.365Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\fdase\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js functions:shell
+[debug] [2025-06-30T14:26:37.365Z] CLI Version:   14.9.0
+[debug] [2025-06-30T14:26:37.365Z] Platform:      win32
+[debug] [2025-06-30T14:26:37.366Z] Node Version:  v22.17.0
+[debug] [2025-06-30T14:26:37.366Z] Time:          Mon Jun 30 2025 17:26:37 GMT+0300 (Израиль, летнее время)
+[debug] [2025-06-30T14:26:37.366Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-06-30T14:26:37.554Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-06-30T14:26:37.555Z] > authorizing via signed-in user (fdasert434@gmail.com)
+[debug] [2025-06-30T14:26:37.555Z] [iam] checking project nftpackopeningbot for permissions ["firebase.projects.get"]
+[debug] [2025-06-30T14:26:37.556Z] Checked if tokens are valid: true, expires at: 1751294639190
+[debug] [2025-06-30T14:26:37.556Z] Checked if tokens are valid: true, expires at: 1751294639190
+[debug] [2025-06-30T14:26:37.556Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/nftpackopeningbot:testIamPermissions [none]
+[debug] [2025-06-30T14:26:37.556Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/nftpackopeningbot:testIamPermissions x-goog-quota-user=projects/nftpackopeningbot
+[debug] [2025-06-30T14:26:37.557Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/nftpackopeningbot:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2025-06-30T14:26:38.549Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/nftpackopeningbot:testIamPermissions 200
+[debug] [2025-06-30T14:26:38.549Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/nftpackopeningbot:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2025-06-30T14:26:38.554Z] [functions] Functions Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2025-06-30T14:26:38.563Z] defaultcredentials: writing to file C:\Users\fdase\AppData\Roaming\firebase\fdasert434_gmail_com_application_default_credentials.json
+[debug] [2025-06-30T14:26:38.565Z] DEBUG: Setting GAC to C:\Users\fdase\AppData\Roaming\firebase\fdasert434_gmail_com_application_default_credentials.json
+[debug] [2025-06-30T14:26:38.565Z] Checked if tokens are valid: true, expires at: 1751294639190
+[debug] [2025-06-30T14:26:38.565Z] Checked if tokens are valid: true, expires at: 1751294639190
+[debug] [2025-06-30T14:26:38.565Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/nftpackopeningbot/adminSdkConfig [none]
+[debug] [2025-06-30T14:26:38.915Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/nftpackopeningbot/adminSdkConfig 200
+[debug] [2025-06-30T14:26:38.915Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/nftpackopeningbot/adminSdkConfig {"projectId":"nftpackopeningbot","storageBucket":"nftpackopeningbot.firebasestorage.app"}
+[debug] [2025-06-30T14:26:38.927Z] [functions] Watching "D:\NFTPackOpening_bot\back\functions" for Cloud Functions...
+[debug] [2025-06-30T14:26:38.930Z] Validating nodejs source
+[debug] [2025-06-30T14:26:39.853Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "lint": "eslint .",
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "22"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "firebase-admin": "^12.6.0",
+    "firebase-functions": "^6.0.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.15.0",
+    "eslint-config-google": "^0.14.0",
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true
+}
+[debug] [2025-06-30T14:26:39.853Z] Building nodejs source
+[debug] [2025-06-30T14:26:39.853Z] Failed to find version of module node: reached end of search path D:\NFTPackOpening_bot\back\functions\node_modules
+[info] +  functions: Using node@22 from host. 
+[debug] [2025-06-30T14:26:39.856Z] Could not find functions.yaml. Must use http discovery
+[debug] [2025-06-30T14:26:39.864Z] Found firebase-functions binary at 'D:\NFTPackOpening_bot\back\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8434
+
+[debug] [2025-06-30T14:26:40.570Z] Got response from /__/functions.yaml {"endpoints":{"canOpenPack":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"callableTrigger":{},"entryPoint":"canOpenPack"},"openPack":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"callableTrigger":{},"entryPoint":"openPack"}},"specVersion":"v1alpha1","requiredAPIs":[],"extensions":{}}
+[debug] [2025-06-30T14:26:44.607Z] [functions] Loaded functions definitions from source: canOpenPack, openPack.
+[debug] [2025-06-30T14:26:44.608Z] [functions[us-central1-canOpenPack]] http function initialized (http://127.0.0.1:5000/nftpackopeningbot/us-central1/canOpenPack).
+[debug] [2025-06-30T14:26:44.608Z] [functions[us-central1-openPack]] http function initialized (http://127.0.0.1:5000/nftpackopeningbot/us-central1/openPack).
+[info] i  functions: Loaded functions: canOpenPack, openPack 
+[warn] !  functions: The following emulators are not running, calls to these services will affect production: firestore, database, pubsub, storage, eventarc, tasks 
+[debug] [2025-06-30T14:26:57.092Z] >>> [apiv2][query] POST http://127.0.0.1:5000/nftpackopeningbot/us-central1/canOpenPack/ [none]
+[debug] [2025-06-30T14:26:57.092Z] >>> [apiv2][body] POST http://127.0.0.1:5000/nftpackopeningbot/us-central1/canOpenPack/ {"telegram_id":"123456","init_data":"<твой_initData>"}
+[debug] [2025-06-30T14:26:57.096Z] [work-queue] {"queuedWork":["/nftpackopeningbot/us-central1/canOpenPack/-2025-06-30T14:26:57.096Z"],"queueLength":1,"runningWork":[],"workRunningCount":0}
+[debug] [2025-06-30T14:26:57.097Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":["/nftpackopeningbot/us-central1/canOpenPack/-2025-06-30T14:26:57.096Z"],"workRunningCount":1}
+[debug] [2025-06-30T14:26:57.097Z] Accepted request POST /nftpackopeningbot/us-central1/canOpenPack/ --> us-central1-canOpenPack
+[debug] [2025-06-30T14:26:57.108Z] DEBUG: [functions] Runtime ready! Sending request!
+[debug] [2025-06-30T14:26:57.109Z] DEBUG: [functions] Got req.url=/nftpackopeningbot/us-central1/canOpenPack/, mapping to path=/
+[debug] [2025-06-30T14:26:57.118Z] DEBUG: [worker-pool] addWorker(us-central1-canOpenPack)
+[debug] [2025-06-30T14:26:57.118Z] DEBUG: [worker-pool] Adding worker with key us-central1-canOpenPack, total=1
+[debug] [2025-06-30T14:26:57.967Z] DEBUG: [runtime-status] [3740] Resolved module firebase-admin {"declared":true,"installed":true,"version":"12.7.0","resolution":"D:\\NFTPackOpening_bot\\back\\functions\\node_modules\\firebase-admin\\lib\\index.js"}
+[debug] [2025-06-30T14:26:57.967Z] DEBUG: [runtime-status] [3740] Resolved module firebase-functions {"declared":true,"installed":true,"version":"6.3.2","resolution":"D:\\NFTPackOpening_bot\\back\\functions\\node_modules\\firebase-functions\\lib\\v2\\index.js"}
+[debug] [2025-06-30T14:26:57.968Z] DEBUG: [runtime-status] [3740] Outgoing network have been stubbed. [{"name":"http","status":"mocked"},{"name":"http","status":"mocked"},{"name":"https","status":"mocked"},{"name":"https","status":"mocked"},{"name":"net","status":"mocked"}]
+[debug] [2025-06-30T14:26:57.968Z] DEBUG: [runtime-status] [3740] Resolved module firebase-functions {"declared":true,"installed":true,"version":"6.3.2","resolution":"D:\\NFTPackOpening_bot\\back\\functions\\node_modules\\firebase-functions\\lib\\v2\\index.js"}
+[debug] [2025-06-30T14:26:58.347Z] DEBUG: [runtime-status] [3740] Checked functions.config() {"config":{}}
+[debug] [2025-06-30T14:26:58.347Z] DEBUG: [runtime-status] [3740] firebase-functions has been stubbed. {"functionsResolution":{"declared":true,"installed":true,"version":"6.3.2","resolution":"D:\\NFTPackOpening_bot\\back\\functions\\node_modules\\firebase-functions\\lib\\v2\\index.js"}}
+[debug] [2025-06-30T14:26:58.348Z] DEBUG: [runtime-status] [3740] Resolved module firebase-functions {"declared":true,"installed":true,"version":"6.3.2","resolution":"D:\\NFTPackOpening_bot\\back\\functions\\node_modules\\firebase-functions\\lib\\v2\\index.js"}
+[debug] [2025-06-30T14:26:58.359Z] DEBUG: [runtime-status] [3740] Resolved module firebase-admin {"declared":true,"installed":true,"version":"12.7.0","resolution":"D:\\NFTPackOpening_bot\\back\\functions\\node_modules\\firebase-admin\\lib\\index.js"}
+[debug] [2025-06-30T14:26:58.361Z] DEBUG: [runtime-status] [3740] Resolved module firebase-functions {"declared":true,"installed":true,"version":"6.3.2","resolution":"D:\\NFTPackOpening_bot\\back\\functions\\node_modules\\firebase-functions\\lib\\v2\\index.js"}
+[debug] [2025-06-30T14:26:58.362Z] DEBUG: [runtime-status] [3740] firebase-admin has been stubbed. {"adminResolution":{"declared":true,"installed":true,"version":"12.7.0","resolution":"D:\\NFTPackOpening_bot\\back\\functions\\node_modules\\firebase-admin\\lib\\index.js"}}
+[debug] [2025-06-30T14:26:58.363Z] DEBUG: [runtime-status] [3740] initializeApp(DEFAULT) {"storageBucket":"nftpackopeningbot.firebasestorage.app","projectId":"nftpackopeningbot"}
+[warn] !  functions: The Cloud Firestore emulator is not running, so calls to Firestore will affect production. {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-canOpenPack"},"extension":{},"message":"The Cloud Firestore emulator is not running, so calls to Firestore will affect production."}}
+[debug] [2025-06-30T14:26:58.370Z] DEBUG: [runtime-status] [3740] Functions runtime initialized. {"cwd":"D:\\NFTPackOpening_bot\\back\\functions","node_version":"22.17.0"}
+[debug] [2025-06-30T14:26:58.370Z] DEBUG: [runtime-status] [3740] Listening to port: \\?\pipe\fire_emu_16118a752eaa05f2
+[debug] [2025-06-30T14:26:58.418Z] DEBUG: [worker-us-central1-canOpenPack-361924de-02d5-4601-adc5-4d4a5751083d]: IDLE
+[debug] [2025-06-30T14:26:58.418Z] DEBUG: [worker-pool] submitRequest(triggerId=us-central1-canOpenPack)
+[debug] [2025-06-30T14:26:58.418Z] [functions] Beginning execution of "us-central1-canOpenPack"
+[debug] [2025-06-30T14:26:58.418Z] DEBUG: [worker-us-central1-canOpenPack-361924de-02d5-4601-adc5-4d4a5751083d]: BUSY
+[info] >  {"telegram_id":"123456","init_data":"<твой_initData>","severity":"WARNING","message":"Request body is missing data."} {"user":{"telegram_id":"123456","init_data":"<твой_initData>","severity":"WARNING","message":"Request body is missing data."},"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-canOpenPack"},"extension":{},"message":"\u001b[90m> \u001b[39m {\"telegram_id\":\"123456\",\"init_data\":\"<твой_initData>\",\"severity\":\"WARNING\",\"message\":\"Request body is missing data.\"}"}}
+[info] >  {"severity":"ERROR","message":"Error: Invalid request, unable to process.\n    at entryFromArgs (D:\\NFTPackOpening_bot\\back\\functions\\node_modules\\firebase-functions\\lib\\logger\\index.js:133:19)\n    at Object.error (D:\\NFTPackOpening_bot\\back\\functions\\node_modules\\firebase-functions\\lib\\logger\\index.js:120:11)\n    at D:\\NFTPackOpening_bot\\back\\functions\\node_modules\\firebase-functions\\lib\\common\\providers\\https.js:431:24\n    at D:\\NFTPackOpening_bot\\back\\functions\\node_modules\\firebase-functions\\lib\\common\\providers\\https.js:392:25\n    at cors (D:\\NFTPackOpening_bot\\back\\functions\\node_modules\\cors\\lib\\index.js:188:7)\n    at D:\\NFTPackOpening_bot\\back\\functions\\node_modules\\cors\\lib\\index.js:224:17\n    at originCallback (D:\\NFTPackOpening_bot\\back\\functions\\node_modules\\cors\\lib\\index.js:214:15)\n    at D:\\NFTPackOpening_bot\\back\\functions\\node_modules\\cors\\lib\\index.js:219:13\n    at optionsCallback (D:\\NFTPackOpening_bot\\back\\functions\\node_modules\\cors\\lib\\index.js:199:9)\n    at corsMiddleware (D:\\NFTPackOpening_bot\\back\\functions\\node_modules\\cors\\lib\\index.js:204:7)"} {"user":{"severity":"ERROR","message":"Error: Invalid request, unable to process.\n    at entryFromArgs (D:\\NFTPackOpening_bot\\back\\functions\\node_modules\\firebase-functions\\lib\\logger\\index.js:133:19)\n    at Object.error (D:\\NFTPackOpening_bot\\back\\functions\\node_modules\\firebase-functions\\lib\\logger\\index.js:120:11)\n    at D:\\NFTPackOpening_bot\\back\\functions\\node_modules\\firebase-functions\\lib\\common\\providers\\https.js:431:24\n    at D:\\NFTPackOpening_bot\\back\\functions\\node_modules\\firebase-functions\\lib\\common\\providers\\https.js:392:25\n    at cors (D:\\NFTPackOpening_bot\\back\\functions\\node_modules\\cors\\lib\\index.js:188:7)\n    at D:\\NFTPackOpening_bot\\back\\functions\\node_modules\\cors\\lib\\index.js:224:17\n    at originCallback (D:\\NFTPackOpening_bot\\back\\functions\\node_modules\\cors\\lib\\index.js:214:15)\n    at D:\\NFTPackOpening_bot\\back\\functions\\node_modules\\cors\\lib\\index.js:219:13\n    at optionsCallback (D:\\NFTPackOpening_bot\\back\\functions\\node_modules\\cors\\lib\\index.js:199:9)\n    at corsMiddleware (D:\\NFTPackOpening_bot\\back\\functions\\node_modules\\cors\\lib\\index.js:204:7)"},"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-canOpenPack"},"extension":{},"message":"\u001b[90m> \u001b[39m {\"severity\":\"ERROR\",\"message\":\"Error: Invalid request, unable to process.\\n    at entryFromArgs (D:\\\\NFTPackOpening_bot\\\\back\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\logger\\\\index.js:133:19)\\n    at Object.error (D:\\\\NFTPackOpening_bot\\\\back\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\logger\\\\index.js:120:11)\\n    at D:\\\\NFTPackOpening_bot\\\\back\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\common\\\\providers\\\\https.js:431:24\\n    at D:\\\\NFTPackOpening_bot\\\\back\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\common\\\\providers\\\\https.js:392:25\\n    at cors (D:\\\\NFTPackOpening_bot\\\\back\\\\functions\\\\node_modules\\\\cors\\\\lib\\\\index.js:188:7)\\n    at D:\\\\NFTPackOpening_bot\\\\back\\\\functions\\\\node_modules\\\\cors\\\\lib\\\\index.js:224:17\\n    at originCallback (D:\\\\NFTPackOpening_bot\\\\back\\\\functions\\\\node_modules\\\\cors\\\\lib\\\\index.js:214:15)\\n    at D:\\\\NFTPackOpening_bot\\\\back\\\\functions\\\\node_modules\\\\cors\\\\lib\\\\index.js:219:13\\n    at optionsCallback (D:\\\\NFTPackOpening_bot\\\\back\\\\functions\\\\node_modules\\\\cors\\\\lib\\\\index.js:199:9)\\n    at corsMiddleware (D:\\\\NFTPackOpening_bot\\\\back\\\\functions\\\\node_modules\\\\cors\\\\lib\\\\index.js:204:7)\"}"}}
+[debug] [2025-06-30T14:26:58.435Z] DEBUG: Finishing up request with event=pause
+[debug] [2025-06-30T14:26:58.435Z] [functions] Finished "us-central1-canOpenPack" in 16.3058ms
+[debug] [2025-06-30T14:26:58.435Z] DEBUG: [worker-us-central1-canOpenPack-361924de-02d5-4601-adc5-4d4a5751083d]: IDLE
+[debug] [2025-06-30T14:26:58.435Z] DEBUG: Finishing up request with event=finish
+[debug] [2025-06-30T14:26:58.435Z] DEBUG: Finishing up request with event=close
+[debug] [2025-06-30T14:26:58.435Z] [work-queue] {"queuedWork":[],"queueLength":0,"runningWork":[],"workRunningCount":0}
+[debug] [2025-06-30T14:26:58.436Z] <<< [apiv2][status] POST http://127.0.0.1:5000/nftpackopeningbot/us-central1/canOpenPack/ 400
+[debug] [2025-06-30T14:26:58.436Z] <<< [apiv2][body] POST http://127.0.0.1:5000/nftpackopeningbot/us-central1/canOpenPack/ {"error":{"message":"Bad Request","status":"INVALID_ARGUMENT"}}
