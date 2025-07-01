@@ -1,7 +1,7 @@
 from telegram import InlineKeyboardMarkup, InlineKeyboardButton, Update
 from telegram.ext import Application, CommandHandler, ContextTypes
 
-TOKEN = '7942953226:AAHri1jAKi_orylmcE3dGAJ3WwV3C_8NXt4'
+TOKEN = '7942953226:AAEOsJ9D0jPQEpN0-O1cfShex6hYj7lB6bM'
 WEB_APP_URL = "https://nft-pack-opening-bot.vercel.app"
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -13,9 +13,3 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 app = Application.builder().token(TOKEN).build()
 app.add_handler(CommandHandler("start", start))
 app.run_polling()
-
-if __name__ == '__main__':
-    app = ApplicationBuilder().token(TOKEN).build()
-    app.add_handler(CommandHandler("start", start))
-    print("Бот запущен...")
-    app.run_polling()

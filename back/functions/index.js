@@ -6,7 +6,8 @@ const cors = require("cors");
 admin.initializeApp();
 const db = admin.firestore();
 
-const botToken = "7942953226:AAHri1jAKi_orylmcE3dGAJ3WwV3C_8NXt4";
+const botToken = "7942953226:AAEOsJ9D0jPQEpN0-O1cfShex6hYj7lB6bM";
+  
 const corsHandler = cors({
   origin: "https://nft-pack-opening-bot.vercel.app",
 });
