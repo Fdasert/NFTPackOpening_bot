@@ -58,7 +58,9 @@
           logEl.textContent = "❌ Пользователь не найден. Откройте через Telegram WebApp.";
           return;
         }
-
+  console.log("📦 Отправляемые данные:");
+  console.log("telegram_id:", tg.initDataUnsafe.user.id);
+  console.log("init_data:", tg.initData);
         const res = await fetch("https://us-central1-nftpackopeningbot.cloudfunctions.net/canOpenPack", {
           method: "POST",
           headers: {

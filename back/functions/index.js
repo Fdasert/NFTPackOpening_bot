@@ -28,7 +28,10 @@ function verifyInitData(initData, botToken) {
   const isValid = hmac === hash;
 
   console.log("🔍 [verifyInitData]", { dataCheckString, hash, hmac, isValid });
-
+  console.log("initData =", initData);
+  console.log("dataCheckString =", dataCheckString);
+  console.log("expected hash =", hash);
+  console.log("generated hash =", hmac);
   return isValid;
 }
 
