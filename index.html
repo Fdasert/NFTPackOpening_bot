@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>NFTPackOpening - Тест canOpenPack</title>
+  <title>NFTPackOpening — Проверка доступа</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -34,50 +34,54 @@
   </style>
 </head>
 <body>
-  <h1>Тест вызова функции canOpenPack</h1>
-  <button id="testBtn">Проверить canOpenPack</button>
+  <h1>canOpenPack (через Vercel)</h1>
+  <button id="testBtn">Проверить доступ</button>
   <pre id="log"></pre>
 
   <!-- Telegram Web App JS -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
   <script>
-    const tg = window.Telegram?.WebApp;
+    const tg = window.Telegram.WebApp;
+    tg.expand();
+
     const logEl = document.getElementById("log");
     const btn = document.getElementById("testBtn");
 
-    btn.onclick = async () => {
-      logEl.textContent = "Вызов canOpenPack...";
-      if (!tg?.initDataUnsafe?.user) {
-        logEl.textContent = "Ошибка: пользователь Telegram не обнаружен. Откройте через Telegram.";
-        return;
-      }
-
-      const data = {
-        telegram_id: tg.initDataUnsafe.user.id.toString(),
-        init_data: tg.initData
-      };
-
+    async function testCanOpenPack() {
+      logEl.textContent = "⏳ Проверяем canOpenPack...";
       try {
-        const response = await fetch("https://us-central1-nftpackopeningbot.cloudfunctions.net/canOpenPack", {
+        const user = tg?.initDataUnsafe?.user;
+        const initData = tg?.initData;
+
+        if (!user || !initData) {
+          logEl.textContent = "❌ Пользователь не найден. Откройте через Telegram WebApp.";
+          return;
+        }
+
+        const res = await fetch("https://us-central1-nftpackopeningbot.cloudfunctions.net/canOpenPack", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
           },
-          body: JSON.stringify(data),
-          mode: "cors"
+          body: JSON.stringify({
+            telegram_id: user.id.toString(),
+            init_data: initData
+          })
         });
 
-        if (!response.ok) {
-          throw new Error(`Ошибка сервера: ${response.status} ${response.statusText}`);
+        const result = await res.json();
+        if (!res.ok) {
+          throw new Error(result.message || "Ошибка от сервера");
         }
 
-        const result = await response.json();
-        logEl.textContent = "Ответ от canOpenPack:\n" + JSON.stringify(result, null, 2);
-      } catch (err) {
-        logEl.textContent = "Ошибка вызова canOpenPack:\n" + err.message;
+        logEl.textContent = "✅ Ответ от canOpenPack:\n" + JSON.stringify(result, null, 2);
+      } catch (error) {
+        logEl.textContent = "❌ Ошибка:\n" + error.message;
       }
-    };
+    }
+
+    btn.onclick = testCanOpenPack;
   </script>
 </body>
 </html>
