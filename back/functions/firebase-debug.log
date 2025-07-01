@@ -1,0 +1,16 @@
+[debug] [2025-07-01T12:05:57.163Z] ----------------------------------------------------------------------
+[debug] [2025-07-01T12:05:57.166Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\fdase\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only functions
+[debug] [2025-07-01T12:05:57.166Z] CLI Version:   14.9.0
+[debug] [2025-07-01T12:05:57.166Z] Platform:      win32
+[debug] [2025-07-01T12:05:57.166Z] Node Version:  v22.17.0
+[debug] [2025-07-01T12:05:57.167Z] Time:          Tue Jul 01 2025 15:05:57 GMT+0300 (Израиль, летнее время)
+[debug] [2025-07-01T12:05:57.167Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-07-01T12:05:57.358Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-07-01T12:05:57.358Z] > authorizing via signed-in user (fdasert434@gmail.com)
+[debug] [2025-07-01T12:05:57.358Z] [iam] checking project nftpackopeningbot for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[debug] [2025-07-01T12:05:57.359Z] Checked if tokens are valid: true, expires at: 1751373091746
+[debug] [2025-07-01T12:05:57.359Z] Checked if tokens are valid: true, expires at: 1751373091746
+[debug] [2025-07-01T12:05:57.360Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/nftpackopeningbot:testIamPermissions [none]
+[debug] [2025-07-01T12:05:57.360Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/nftpackopeningbot:testIamPermissions x-goog-quota-user=projects/nftpackopeningbot
+[debug] [2025-07-01T12:05:57.360Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/nftpackopeningbot:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}

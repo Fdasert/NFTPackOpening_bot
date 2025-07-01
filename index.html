@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>NFTPackOpening - Проверка canOpenPack</title>
+  <title>NFTPackOpening - Тест canOpenPack</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -47,12 +47,16 @@
     const btn = document.getElementById("testBtn");
 
     btn.onclick = async () => {
-      logEl.textContent = "Выполняется запрос к canOpenPack...";
-
+      logEl.textContent = "Вызов canOpenPack...";
       if (!tg?.initDataUnsafe?.user) {
         logEl.textContent = "Ошибка: пользователь Telegram не обнаружен. Откройте через Telegram.";
         return;
       }
+
+      const data = {
+        telegram_id: tg.initDataUnsafe.user.id.toString(),
+        init_data: tg.initData
+      };
 
       try {
         const response = await fetch("https://us-central1-nftpackopeningbot.cloudfunctions.net/canOpenPack", {
@@ -60,28 +64,20 @@
           headers: {
             "Content-Type": "application/json"
           },
-          body: JSON.stringify({
-            telegram_id: tg.initDataUnsafe.user.id.toString(),
-            init_data: tg.initData
-          })
+          body: JSON.stringify(data),
+          mode: "cors"
         });
 
         if (!response.ok) {
-          const errorText = await response.text();
-          logEl.textContent = `Ошибка от сервера: ${response.status} ${response.statusText}\n${errorText}`;
-          return;
+          throw new Error(`Ошибка сервера: ${response.status} ${response.statusText}`);
         }
 
-        const data = await response.json();
-        logEl.textContent = "Ответ от canOpenPack:\n" + JSON.stringify(data, null, 2);
-
+        const result = await response.json();
+        logEl.textContent = "Ответ от canOpenPack:\n" + JSON.stringify(result, null, 2);
       } catch (err) {
-        logEl.textContent = "Ошибка при запросе:\n" + err.message;
+        logEl.textContent = "Ошибка вызова canOpenPack:\n" + err.message;
       }
     };
-
-    // Для вызова из консоли браузера, если нужно
-    window.testCanOpenPack = btn.onclick;
   </script>
 </body>
 </html>

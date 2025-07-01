@@ -1,13 +1,14 @@
-// index.js (Firebase Functions backend)
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 const crypto = require("crypto");
+const cors = require("cors")({ origin: true }); // разрешить все источники
 
 admin.initializeApp();
 const db = admin.firestore();
 
 const botToken = "7942953226:AAHri1jAKi_orylmcE3dGAJ3WwV3C_8NXt4";
 
+// Проверка подписи initData (пример)
 function verifyInitData(initData, botToken) {
   if (!initData || typeof initData !== "string") return false;
 
@@ -25,43 +26,74 @@ function verifyInitData(initData, botToken) {
   return hmac === hash;
 }
 
-exports.canOpenPack = functions.https.onRequest(async (req, res) => {
-  const { telegram_id, init_data } = req.body;
+// Функция canOpenPack с CORS
+exports.canOpenPack = functions.https.onRequest((req, res) => {
+  cors(req, res, async () => {
+    if (req.method === "OPTIONS") {
+      return res.status(204).send("");
+    }
+    if (req.method !== "POST") {
+      return res.status(405).send("Method Not Allowed");
+    }
 
-  if (!verifyInitData(init_data, botToken)) {
-    return res.status(403).json({ error: "Invalid Telegram initData" });
-  }
+    const { telegram_id, init_data } = req.body;
 
-  const userRef = db.collection("users").doc(telegram_id);
-  const doc = await userRef.get();
+    if (!telegram_id || !init_data) {
+      return res.status(400).send("Missing parameters");
+    }
 
-  const now = Date.now();
-  const cooldown = 24 * 60 * 60 * 1000;
+    if (!verifyInitData(init_data, botToken)) {
+      return res.status(403).send("Invalid initData");
+    }
 
-  if (doc.exists && now - doc.data().lastOpen < cooldown) {
-    const waitMs = cooldown - (now - doc.data().lastOpen);
-    return res.json({ canOpen: false, waitMs });
-  }
+    const userRef = db.collection("users").doc(telegram_id);
+    const doc = await userRef.get();
 
-  return res.json({ canOpen: true });
+    const now = Date.now();
+    const cooldown = 24 * 60 * 60 * 1000;
+
+    if (doc.exists && now - doc.data().lastOpen < cooldown) {
+      const waitMs = cooldown - (now - doc.data().lastOpen);
+      return res.json({ canOpen: false, waitMs });
+    }
+
+    res.json({ canOpen: true });
+  });
 });
 
-exports.openPack = functions.https.onRequest(async (req, res) => {
-  const { telegram_id, init_data } = req.body;
+// Функция openPack с CORS
+exports.openPack = functions.https.onRequest((req, res) => {
+  cors(req, res, async () => {
+    if (req.method === "OPTIONS") {
+      return res.status(204).send("");
+    }
+    if (req.method !== "POST") {
+      return res.status(405).send("Method Not Allowed");
+    }
 
-  if (!verifyInitData(init_data, botToken)) {
-    return res.status(403).json({ error: "Invalid Telegram initData" });
-  }
+    const { telegram_id, init_data } = req.body;
 
-  const userRef = db.collection("users").doc(telegram_id);
-  await userRef.set({ lastOpen: Date.now() }, { merge: true });
+    if (!telegram_id || !init_data) {
+      return res.status(400).send("Missing parameters");
+    }
 
-  const nftList = [
-    { name: "Dragon", rarity: "legendary" },
-    { name: "Wolf", rarity: "common" },
-    { name: "Tiger", rarity: "rare" }
-  ];
+    if (!verifyInitData(init_data, botToken)) {
+      return res.status(403).send("Invalid initData");
+    }
 
-  const nft = nftList[Math.floor(Math.random() * nftList.length)];
-  return res.json({ nft });
+    const userRef = db.collection("users").doc(telegram_id);
+    const now = Date.now();
+
+    await userRef.set({ lastOpen: now }, { merge: true });
+
+    const nftList = [
+      { name: "Dragon", rarity: "legendary" },
+      { name: "Wolf", rarity: "common" },
+      { name: "Tiger", rarity: "rare" }
+    ];
+
+    const nft = nftList[Math.floor(Math.random() * nftList.length)];
+
+    res.json({ nft });
+  });
 });
