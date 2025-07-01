@@ -14,3 +14,69 @@
 [debug] [2025-07-01T12:05:57.360Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/nftpackopeningbot:testIamPermissions [none]
 [debug] [2025-07-01T12:05:57.360Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/nftpackopeningbot:testIamPermissions x-goog-quota-user=projects/nftpackopeningbot
 [debug] [2025-07-01T12:05:57.360Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/nftpackopeningbot:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2025-07-01T12:05:58.370Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/nftpackopeningbot:testIamPermissions 200
+[debug] [2025-07-01T12:05:58.370Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/nftpackopeningbot:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2025-07-01T12:05:58.370Z] Checked if tokens are valid: true, expires at: 1751373091746
+[debug] [2025-07-01T12:05:58.370Z] Checked if tokens are valid: true, expires at: 1751373091746
+[debug] [2025-07-01T12:05:58.370Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/nftpackopeningbot/serviceAccounts/nftpackopeningbot@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2025-07-01T12:05:58.370Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/nftpackopeningbot/serviceAccounts/nftpackopeningbot@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2025-07-01T12:05:59.316Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/nftpackopeningbot/serviceAccounts/nftpackopeningbot@appspot.gserviceaccount.com:testIamPermissions 200
+[debug] [2025-07-01T12:05:59.316Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/nftpackopeningbot/serviceAccounts/nftpackopeningbot@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[info] 
+[info] === Deploying to 'nftpackopeningbot'...
+[info] 
+[info] i  deploying functions 
+[debug] [2025-07-01T12:05:59.319Z] Checked if tokens are valid: true, expires at: 1751373091746
+[debug] [2025-07-01T12:05:59.319Z] Checked if tokens are valid: true, expires at: 1751373091746
+[debug] [2025-07-01T12:05:59.319Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/nftpackopeningbot [none]
+[debug] [2025-07-01T12:05:59.555Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/nftpackopeningbot 200
+[debug] [2025-07-01T12:05:59.556Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/nftpackopeningbot {"projectNumber":"708537325891","projectId":"nftpackopeningbot","lifecycleState":"ACTIVE","name":"NFTPackOpeningbot","labels":{"firebase":"enabled","firebase-core":"disabled"},"createTime":"2025-06-30T09:33:20.538804Z"}
+[info] i  functions: preparing codebase default for deployment 
+[info] i  functions: ensuring required API cloudfunctions.googleapis.com is enabled... 
+[info] i  functions: ensuring required API cloudbuild.googleapis.com is enabled... 
+[info] i  artifactregistry: ensuring required API artifactregistry.googleapis.com is enabled... 
+[debug] [2025-07-01T12:05:59.558Z] Checked if tokens are valid: true, expires at: 1751373091746
+[debug] [2025-07-01T12:05:59.558Z] Checked if tokens are valid: true, expires at: 1751373091746
+[debug] [2025-07-01T12:05:59.558Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/nftpackopeningbot/adminSdkConfig [none]
+[debug] [2025-07-01T12:05:59.929Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/nftpackopeningbot/adminSdkConfig 200
+[debug] [2025-07-01T12:05:59.929Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/nftpackopeningbot/adminSdkConfig {"projectId":"nftpackopeningbot","storageBucket":"nftpackopeningbot.firebasestorage.app"}
+[debug] [2025-07-01T12:05:59.929Z] Checked if tokens are valid: true, expires at: 1751373091746
+[debug] [2025-07-01T12:05:59.929Z] Checked if tokens are valid: true, expires at: 1751373091746
+[debug] [2025-07-01T12:05:59.929Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/nftpackopeningbot/configs [none]
+[debug] [2025-07-01T12:06:00.327Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/nftpackopeningbot/configs 200
+[debug] [2025-07-01T12:06:00.327Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/nftpackopeningbot/configs {}
+[debug] [2025-07-01T12:06:00.328Z] Validating nodejs source
+[debug] [2025-07-01T12:06:01.047Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "lint": "eslint .",
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "22"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "firebase-admin": "^12.6.0",
+    "firebase-functions": "^6.0.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.15.0",
+    "eslint-config-google": "^0.14.0",
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true
+}
+[debug] [2025-07-01T12:06:01.047Z] Building nodejs source
+[info] i  functions: Loading and analyzing source code for codebase default to determine what to deploy 
+[debug] [2025-07-01T12:06:01.048Z] Could not find functions.yaml. Must use http discovery
+[debug] [2025-07-01T12:06:01.059Z] Found firebase-functions binary at 'D:\NFTPackOpening_bot\back\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8652
+
+[debug] [2025-07-01T12:06:01.660Z] Got response from /__/functions.yaml {"endpoints":{"canOpenPack":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"canOpenPack"},"openPack":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"openPack"}},"specVersion":"v1alpha1","requiredAPIs":[],"extensions":{}}
